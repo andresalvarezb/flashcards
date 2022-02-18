@@ -1,0 +1,14 @@
+.navbar {
+    margin: 5rem auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.navbar > li {
+    font-size: 1.1rem;
+    opacity: 0.8;
+    padding: 0.5rem 1.6rem;
+    background-color: var(--color-2-5);
+}
