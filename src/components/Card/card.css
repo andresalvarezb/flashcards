@@ -26,6 +26,7 @@
 }
 
 .card-container-text {
+    height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,7 +34,16 @@
     gap: 2rem;
 }
 
+.changeHeight {
+    height: auto;
+}
+
 .card-answer {
+    display: none;
+}
+
+.card-answer--isVisible {
+    display: block;
     opacity: 0.5;
 }
 
