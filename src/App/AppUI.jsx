@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import Button from '../components/Button';
 import NavbarTopics from '../components/NavbarTopics';
@@ -18,6 +18,7 @@ function AppUI() {
     const [openModal, setOpenModal] = useState(false)
     const [dataCard, setDataCard] = useState(initialData)
     const [dataBaseCards, setDataBaseCards] = useState([])
+    const [dataBaseFilterCards, setDataBaseFilterCards] = useState([])
 
     const handleClick = () => {
         setOpenModal(!openModal)
@@ -27,10 +28,11 @@ function AppUI() {
     const handleChange = (e) => {
         setDataCard({
             ...dataCard,
-            [e.target.name] : e.target.value
+            [e.target.name]: e.target.value
         })
     }
 
+    // CRUD
     const createCard = (card) => {
         card.id = Date.now()
         setDataBaseCards([
@@ -48,28 +50,49 @@ function AppUI() {
         setDataBaseCards(newListOfCards)
     }
 
+    const getCardByTopic = (topic) => {
+        const newListOfCards = dataBaseCards.filter(card => card.topic === topic)
+        setDataBaseFilterCards(newListOfCards)
+    }
+
+    // const getAllCards = () => {
+    //     setDataBaseCards(dataBaseCards)
+    // }
+
+    // useEffect(() => {
+    //     setCopyDataBaseCards(...dataBaseCards)
+    // }, [dataBaseCards])
+
     console.log(dataBaseCards);
     return (
         <main className='main'>
             <header className='containerButton'>
                 <Button onClick={handleClick} >Add</Button>
             </header>
-            <NavbarTopics />
-            <SectionCards>
+            <NavbarTopics>
+                <li onClick={''} >All</li>
                 {
                     dataBaseCards.map(el => (
-                        <Card key={el.id} el={el} deleteCard={deleteCard} />
+                        <li key={el.id} onClick={() => getCardByTopic(el.topic)} > {el.topic}</li>
                     ))
+                }
+            </NavbarTopics>
+            <SectionCards>
+                {
+                    ((dataBaseFilterCards.length === 0 ?
+                        dataBaseCards :
+                        dataBaseFilterCards).map(el => (<Card key={el.id} el={el} deleteCard={deleteCard} />))
+                    )
                 }
             </SectionCards>
             {
                 openModal && (
                     <Modal>
                         <CardForm
-                        handleClick={handleClick}
-                        dataCard={dataCard}
-                        handleChange={handleChange}
-                        createCard={createCard}
+                            handleClick={handleClick}
+                            dataCard={dataCard}
+                            handleChange={handleChange}
+                            createCard={createCard}
                         />
                     </Modal>
                 )
