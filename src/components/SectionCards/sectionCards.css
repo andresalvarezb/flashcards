@@ -1,0 +1,6 @@
+.wrapper-cards {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 3rem;
+}
