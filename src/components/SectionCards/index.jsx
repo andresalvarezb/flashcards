@@ -1,8 +1,9 @@
 import React from 'react'
+import './sectionCards.css'
 
 function sectionCards({children}) {
   return (
-    <div>
+    <div className='wrapper-cards'>
         {children}
     </div>
   )
