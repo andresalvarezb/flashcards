@@ -21,6 +21,7 @@ function AppUI() {
 
     const handleClick = () => {
         setOpenModal(!openModal)
+        setDataCard(initialData)
     }
 
     const handleChange = (e) => {
@@ -42,6 +43,11 @@ function AppUI() {
         setOpenModal(false)
     }
 
+    const deleteCard = (card) => {
+        const newListOfCards = dataBaseCards.filter(el => el.id !== card.id)
+        setDataBaseCards(newListOfCards)
+    }
+
     console.log(dataBaseCards);
     return (
         <main className='main'>
@@ -52,7 +58,7 @@ function AppUI() {
             <SectionCards>
                 {
                     dataBaseCards.map(el => (
-                        <Card index={el.id} question={el.question} answer={el.answer} />
+                        <Card key={el.id} el={el} deleteCard={deleteCard} />
                     ))
                 }
             </SectionCards>
