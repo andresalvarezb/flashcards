@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './App.css';
 import Button from '../components/Button';
 import NavbarTopics from '../components/NavbarTopics';
@@ -6,6 +6,7 @@ import SectionCards from '../components/SectionCards';
 import Card from '../components/Card';
 import Modal from '../components/Modal';
 import CardForm from '../components/CardForm';
+import HeaderContainerButton from '../components/HeaderContainerButton';
 
 const initialData = {
     id: null,
@@ -25,7 +26,6 @@ function AppUI() {
     const [dataCard, setDataCard] = useState(initialData)
     const [dataBaseCards, setDataBaseCards] = useState([initialCard])
     const [dataBaseFilterCards, setDataBaseFilterCards] = useState([])
-    const [isLoading, setIsLoading] = useState(false)
 
     const handleClick = () => {
         setOpenModal(!openModal)
@@ -62,20 +62,12 @@ function AppUI() {
         setDataBaseFilterCards(newListOfCards)
     }
 
-    // const getAllCards = () => {
-    //     setDataBaseCards(dataBaseCards)
-    // }
-
-    // useEffect(() => {
-    //     setCopyDataBaseCards(...dataBaseCards)
-    // }, [dataBaseCards])
-
     console.log(dataBaseCards);
     return (
         <main className='main'>
-            <header className='containerButton'>
+            <HeaderContainerButton>
                 <Button onClick={handleClick} >Add</Button>
-            </header>
+            </HeaderContainerButton>
             <NavbarTopics>
                 <li onClick={''} >All</li>
                 {
