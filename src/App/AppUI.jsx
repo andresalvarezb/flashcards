@@ -14,11 +14,18 @@ const initialData = {
     answer: '',
 }
 
+const initialCard = {
+    question: 'Please, double click on me',
+    answer: 'Yeah!! In this way I work',
+}
+
+
 function AppUI() {
     const [openModal, setOpenModal] = useState(false)
     const [dataCard, setDataCard] = useState(initialData)
-    const [dataBaseCards, setDataBaseCards] = useState([])
+    const [dataBaseCards, setDataBaseCards] = useState([initialCard])
     const [dataBaseFilterCards, setDataBaseFilterCards] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleClick = () => {
         setOpenModal(!openModal)
