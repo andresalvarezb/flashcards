@@ -34,6 +34,9 @@
     height: auto;
 }
 
+.card-question {
+    font-weight: 600;
+}
 .card-answer {
     display: none;
     color: var(--color-1-3);
@@ -41,7 +44,7 @@
 
 .card-answer--isVisible {
     display: block;
-    opacity: 0.5;
+    opacity: 0.8;
 }
 
 .card:hover {
