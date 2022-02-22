@@ -68,10 +68,10 @@ function AppUI() {
         setDataBaseCards(newListOfCards)
     }
 
-    // const getCardByTopic = (topic) => {
-    //     const newListOfCards = dataBaseCards.filter(card => card.topic === topic)
-    //     setDataBaseFilterCards(newListOfCards)
-    // }
+    const getCardByTopic = (topic) => {
+        const newListOfCards = dataBaseCards.filter(card => card.topic === topic)
+        setDataBaseFilterCards(newListOfCards)
+    }
 
     console.log(dataBaseCards);
     return (
@@ -81,11 +81,11 @@ function AppUI() {
             </HeaderContainerButton>
             <NavbarTopics>
                 {/* <li onClick={''} >All</li>*/}
-                {/* {
+                {
                     dataBaseCards.map(el => (
-                        <li key={el.topic} onClick={() => getCardByTopic(el.topic)} > {el.topic}</li>
+                        <li key={el.topic} onClick={() => getCardByTopic(el.topic)}  > {el.topic}</li>
                     ))
-                } */}
+                }
             </NavbarTopics>
             <SectionCards>
                 {
