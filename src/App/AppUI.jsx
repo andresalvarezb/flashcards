@@ -67,7 +67,6 @@ function AppUI() {
     }
 
     const deleteCard = (card) => {
-        //
         const copyDataBase = [...dataBaseCards]
 
         // delete card from object
@@ -81,16 +80,21 @@ function AppUI() {
         const indexObjectByTopic = copyDataBase.findIndex(el => el.cards);
         copyDataBase.splice(indexObjectByTopic, 1)
 
-        // add new object with cards update
-        copyDataBase.push(copyOfObjectByTopic)
-        console.log(copyDataBase);
-        setDataBaseCards(copyDataBase)
+        if (copyOfObjectByTopic.cards.length === 0) {
+            setDataBaseCards(copyDataBase)
+        } else {
+            // add new object with cards update
+            copyDataBase.push(copyOfObjectByTopic)
+            console.log(copyDataBase);
+            setDataBaseCards(copyDataBase)
+        }
     }
 
     const getCardByTopic = (topic) => {
         const newListOfCards = dataBaseCards.filter(card => card.topic === topic)
         setDataBaseFilterCards(newListOfCards)
     }
+
     const allCards = () => {
         setDataBaseFilterCards([])
     }
