@@ -37,10 +37,12 @@ function AppUI() {
 
     // CRUD
     const createCard = (card) => {
-        const existTopic = dataBaseCards.find(el => el.topic === card.topic)
+        const existTopic = dataBaseCards.find(el => el.topic === card.topic.toLowerCase())
+        const id = Date.now();
 
         if (existTopic) {
             existTopic.cards.push({
+                id: id,
                 question: card.question,
                 answer: card.answer
             })
@@ -48,11 +50,12 @@ function AppUI() {
             const newCard = [
                 ...dataBaseCards,
                 {
-                    topic: card.topic,
+                    topic: card.topic.toLowerCase(),
                     cards: [
                         {
-                            question: card.question,
-                            answer: card.answer
+                            id: id,
+                            question: card.question.toLowerCase(),
+                            answer: card.answer.toLowerCase()
                         }
                     ]
                 }
@@ -64,8 +67,24 @@ function AppUI() {
     }
 
     const deleteCard = (card) => {
-        const newListOfCards = dataBaseCards.filter(el => el.id !== card.id)
-        setDataBaseCards(newListOfCards)
+        //
+        const copyDataBase = [...dataBaseCards]
+
+        // delete card from object
+        const getObjectByTopic = copyDataBase.find(el => el.cards)
+        const copyOfObjectByTopic = { ...getObjectByTopic }
+        const cardsByTopic = copyOfObjectByTopic.cards;
+        const newListOfCardsByTopic = cardsByTopic.filter(el => el.id !== card.id);
+        copyOfObjectByTopic.cards = [...newListOfCardsByTopic]
+
+        // delete the original object
+        const indexObjectByTopic = copyDataBase.findIndex(el => el.cards);
+        copyDataBase.splice(indexObjectByTopic, 1)
+
+        // add new object with cards update
+        copyDataBase.push(copyOfObjectByTopic)
+        console.log(copyDataBase);
+        setDataBaseCards(copyDataBase)
     }
 
     const getCardByTopic = (topic) => {
@@ -76,7 +95,7 @@ function AppUI() {
         setDataBaseFilterCards([])
     }
 
-    console.log(dataBaseCards);
+    // console.log(dataBaseCards);
     return (
         <main className='main'>
             <HeaderContainerButton>
