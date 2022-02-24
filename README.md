@@ -4,10 +4,10 @@ This project to allow you study topic that you need memorize.
 
 ## How does it work?
 
-1. You click in the button ___Add___ and you'll see a modal to create a flash card.
+1. You click on the ___Add___  and you'll see a modal to create a flash card.
 2. Create the card and you'll see on the main page.
 3. Study! Try to remember what is the answer of each card
-4. Do double click on the card and you'll see the answer.
+4. Double click on the card and you'll see the answer.
 
 ### Demo
 
