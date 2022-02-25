@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import useLocalStorage from '../hooks/useLocalStorage';
 import AppUI from './AppUI'
 
 const initialData = {
@@ -13,7 +14,7 @@ const initialData = {
 function App() {
     const [openModal, setOpenModal] = useState(false)
     const [infoCard, setInfoCard] = useState(initialData)
-    const [dataBaseCards, setDataBaseCards] = useState([])
+    const [dataBaseCards, saveCards] = useLocalStorage('CARDS_V1', []);
     const [dataBaseFilterCards, setDataBaseFilterCards] = useState([])
 
     const handleClickModal = () => {
@@ -30,7 +31,7 @@ function App() {
     }
 
     // CRUD
-    const createCard = (card) => {
+        const createCard = (card) => {
         const existTopic = dataBaseCards.find(el => el.topic === card.topic.toLowerCase())
         const id = Date.now();
 
@@ -54,7 +55,7 @@ function App() {
                     ]
                 }
             ]
-            setDataBaseCards(newCard)
+            saveCards(newCard)
         }
         setInfoCard(initialData)
         setOpenModal(false)
@@ -75,12 +76,12 @@ function App() {
         copyDataBase.splice(indexObjectByTopic, 1)
 
         if (copyOfObjectByTopic.cards.length === 0) {
-            setDataBaseCards(copyDataBase)
+            saveCards(copyDataBase)
         } else {
             // add new object with cards update
             copyDataBase.push(copyOfObjectByTopic)
             console.log(copyDataBase);
-            setDataBaseCards(copyDataBase)
+            saveCards(copyDataBase)
         }
     }
 
@@ -92,6 +93,7 @@ function App() {
     const allCards = () => {
         setDataBaseFilterCards([])
     }
+
 
     return (
         <AppUI
