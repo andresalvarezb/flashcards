@@ -46,7 +46,7 @@ function App() {
                     cards: [
                         {
                             id: id,
-                            question: card.question.toLowerCase(),
+                            question: card.question.toUpperCase(),
                             answer: card.answer.toLowerCase()
                         }
                     ]
