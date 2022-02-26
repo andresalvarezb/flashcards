@@ -6,16 +6,13 @@ const initialData = {
     topic: '',
     question: '',
     answer: ''
-    // cards: [
-    //     { question: '', answer: '' }
-    // ]
 }
 
 function App() {
     const [openModal, setOpenModal] = useState(false)
     const [infoCard, setInfoCard] = useState(initialData)
-    const [dataBaseCards, saveCards] = useLocalStorage('CARDS_V1', []);
-    const [dataBaseFilterCards, setDataBaseFilterCards] = useState([])
+    const [dbCards, saveDbCards] = useLocalStorage('CARDS_V1', []);
+    const [listOfCardsFilter, setListOfCardsFilter] = useState([])
 
     const handleClickModal = () => {
         setOpenModal(!openModal)
@@ -32,7 +29,7 @@ function App() {
 
     // CRUD
         const createCard = (card) => {
-        const existTopic = dataBaseCards.find(el => el.topic === card.topic.toLowerCase())
+        const existTopic = dbCards.find(el => el.topic === card.topic.toLowerCase())
         const id = Date.now();
 
         if (existTopic) {
@@ -43,7 +40,7 @@ function App() {
             })
         } else {
             const newCard = [
-                ...dataBaseCards,
+                ...dbCards,
                 {
                     topic: card.topic.toLowerCase(),
                     cards: [
@@ -55,43 +52,41 @@ function App() {
                     ]
                 }
             ]
-            saveCards(newCard)
+            saveDbCards(newCard)
         }
         setInfoCard(initialData)
         setOpenModal(false)
     }
 
     const deleteCard = (card) => {
-        const copyDataBase = [...dataBaseCards]
+        const newDbCards = [...dbCards]
 
         // delete card from object
-        const getObjectByTopic = copyDataBase.find(el => el.cards)
-        const copyOfObjectByTopic = { ...getObjectByTopic }
-        const cardsByTopic = copyOfObjectByTopic.cards;
-        const newListOfCardsByTopic = cardsByTopic.filter(el => el.id !== card.id);
-        copyOfObjectByTopic.cards = [...newListOfCardsByTopic]
+        const getTopic = newDbCards.find(el => el.cards)
+        const newTopic = { ...getTopic }
+        const newCardsByTopic = newTopic.cards.filter(el => el.id !== card.id);
+        newTopic.cards = [...newCardsByTopic]
 
         // delete the original object
-        const indexObjectByTopic = copyDataBase.findIndex(el => el.cards);
-        copyDataBase.splice(indexObjectByTopic, 1)
+        const indexTopic = newDbCards.findIndex(el => el.cards);
+        newDbCards.splice(indexTopic, 1)
 
-        if (copyOfObjectByTopic.cards.length === 0) {
-            saveCards(copyDataBase)
+        if (newTopic.cards.length === 0) {
+            saveDbCards(newDbCards)
         } else {
             // add new object with cards update
-            copyDataBase.push(copyOfObjectByTopic)
-            console.log(copyDataBase);
-            saveCards(copyDataBase)
+            newDbCards.push(newTopic)
+            saveDbCards(newDbCards)
         }
     }
 
     const getCardByTopic = (topic) => {
-        const newListOfCards = dataBaseCards.filter(card => card.topic === topic)
-        setDataBaseFilterCards(newListOfCards)
+        const newCardList = dbCards.filter(card => card.topic === topic)
+        setListOfCardsFilter(newCardList)
     }
 
     const allCards = () => {
-        setDataBaseFilterCards([])
+        setListOfCardsFilter([])
     }
 
 
@@ -99,8 +94,8 @@ function App() {
         <AppUI
             openModal={openModal}
             infoCard={infoCard}
-            dataBaseCards={dataBaseCards}
-            dataBaseFilterCards={dataBaseFilterCards}
+            dbCards={dbCards}
+            listOfCardsFilter={listOfCardsFilter}
             handleClickModal={handleClickModal}
             handleChange={handleChange}
             createCard={createCard}
