@@ -85,7 +85,7 @@ function App() {
         setListOfCardsFilter(newCardList)
     }
 
-    const allCards = () => {
+    const getCards = () => {
         setListOfCardsFilter([])
     }
 
@@ -101,7 +101,7 @@ function App() {
             createCard={createCard}
             deleteCard={deleteCard}
             getCardByTopic={getCardByTopic}
-            allCards={allCards}
+            getCards={getCards}
         />
     )
 }

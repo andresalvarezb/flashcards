@@ -8,7 +8,7 @@ import CardForm from '../components/CardForm';
 import HeaderContainerButton from '../components/HeaderContainerButton';
 
 
-function AppUI({ openModal, infoCard, dbCards, listOfCardsFilter, handleChange, createCard, handleClickModal, allCards, deleteCard, getCardByTopic }) {
+function AppUI({ openModal, infoCard, dbCards, listOfCardsFilter, handleChange, createCard, handleClickModal, getCards, deleteCard, getCardByTopic }) {
 
     return (
         <main className='main'>
@@ -16,7 +16,7 @@ function AppUI({ openModal, infoCard, dbCards, listOfCardsFilter, handleChange, 
                 <Button onClick={handleClickModal} >Add</Button>
             </HeaderContainerButton>
             <NavbarTopics>
-                <li onClick={allCards} >All</li>
+                <li onClick={getCards} >All</li>
                 {
                     dbCards.map(el => (
                         <li key={el.topic} onClick={() => getCardByTopic(el.topic)} > {el.topic}</li>
