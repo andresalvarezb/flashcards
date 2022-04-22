@@ -15,3 +15,5 @@ This project to allow you study topic that you need memorize.
 
 ***
 This project was created with the idea of helping my little sister to study history. I hope you can use for the same purpose or help me make it better.
+
+![img1](/src/assets/demo-img.png)
